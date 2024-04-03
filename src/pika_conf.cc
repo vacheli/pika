@@ -113,6 +113,9 @@ int PikaConf::Load() {
   // Immutable Sections
   //
   GetConfInt("port", &port_);
+  GetConfInt("replicaiton-port", &replicaiton_port_);
+  GetConfInt("heartbeat-port", &heartbeat_port_);
+
   GetConfStr("log-path", &log_path_);
   log_path_ = log_path_.empty() ? "./log/" : log_path_;
   if (log_path_[log_path_.length() - 1] != '/') {
