@@ -19,6 +19,7 @@
 #include "include/pika_define.h"
 #include "include/pika_meta.h"
 #include "rocksdb/compression_type.h"
+#include "rocksdb/rate_limiter.h"
 
 #define kBinlogReadWinDefaultSize 9000
 #define kBinlogReadWinMaxSize 90000
@@ -312,6 +313,10 @@ class PikaConf : public pstd::BaseConf {
   int max_conn_rbuf_size() { return max_conn_rbuf_size_.load(); }
   int consensus_level() { return consensus_level_.load(); }
   int replication_num() { return replication_num_.load(); }
+  int rate_limiter_mode() {
+    std::shared_lock l(rwlock_);
+    return rate_limiter_mode_;
+  }
   int64_t rate_limiter_bandwidth() {
     std::shared_lock l(rwlock_);
     return rate_limiter_bandwidth_;
@@ -749,6 +754,8 @@ class PikaConf : public pstd::BaseConf {
   bool pin_l0_filter_and_index_blocks_in_cache_ = false;
   bool optimize_filters_for_hits_ = false;
   bool level_compaction_dynamic_level_bytes_ = true;
+  // kReadsOnly = 0, kWritesOnly = 1, kAllIo = 2
+  int rate_limiter_mode_ = 0;
   int64_t rate_limiter_bandwidth_ = 0;
   int64_t rate_limiter_refill_period_us_ = 0;
   int64_t rate_limiter_fairness_ = 0;

@@ -1342,6 +1342,13 @@ void PikaServer::InitStorageOptions() {
   }
 
   // For rocksdb::BlockBasedDBOptions
+  storage_options_.table_options.index_type = rocksdb::BlockBasedTableOptions::IndexType::kTwoLevelIndexSearch;
+  storage_options_.table_options.filter_policy.reset(rocksdb::NewBloomFilterPolicy(10, false));
+  storage_options_.table_options.partition_filters = true;
+  storage_options_.table_options.metadata_block_size = 4096;
+  storage_options_.table_options.cache_index_and_filter_blocks_with_high_priority = true;
+  storage_options_.table_options.pin_top_level_index_and_filter = true; 
+
   storage_options_.table_options.block_size = g_pika_conf->block_size();
   storage_options_.table_options.cache_index_and_filter_blocks = g_pika_conf->cache_index_and_filter_blocks();
   storage_options_.block_cache_size = g_pika_conf->block_cache();
@@ -1357,13 +1364,15 @@ void PikaServer::InitStorageOptions() {
         rocksdb::NewLRUCache(storage_options_.block_cache_size, static_cast<int>(g_pika_conf->num_shard_bits()));
   }
 
+  
   storage_options_.options.rate_limiter =
       std::shared_ptr<rocksdb::RateLimiter>(
           rocksdb::NewGenericRateLimiter(
               g_pika_conf->rate_limiter_bandwidth(),
               g_pika_conf->rate_limiter_refill_period_us(),
               static_cast<int32_t>(g_pika_conf->rate_limiter_fairness()),
-              rocksdb::RateLimiter::Mode::kWritesOnly,
+              // rocksdb::RateLimiter::Mode::kAllIo,
+              static_cast<rocksdb::RateLimiter::Mode>(g_pika_conf->rate_limiter_mode()),
               g_pika_conf->rate_limiter_auto_tuned()
                   ));
 

@@ -30,6 +30,8 @@ Get_Dist_Name()
         DISTRO='unknow'
         PM='unknow'
     fi
+    DISTRO='CentOS'
+    PM='yum'
     echo $DISTRO;
 }
 Get_Dist_Name
