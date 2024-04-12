@@ -1348,6 +1348,7 @@ void PikaServer::InitStorageOptions() {
   storage_options_.table_options.metadata_block_size = 4096;
   storage_options_.table_options.cache_index_and_filter_blocks_with_high_priority = true;
   storage_options_.table_options.pin_top_level_index_and_filter = true; 
+  storage_options_.table_options.optimize_filters_for_memory = true;
 
   storage_options_.table_options.block_size = g_pika_conf->block_size();
   storage_options_.table_options.cache_index_and_filter_blocks = g_pika_conf->cache_index_and_filter_blocks();
