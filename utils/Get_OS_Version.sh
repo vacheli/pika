@@ -11,8 +11,8 @@ Get_Dist_Name()
     elif grep -Eqi "Red Hat Enterprise Linux Server" /etc/issue || grep -Eq "Red Hat Enterprise Linux Server" /etc/*-release; then
         DISTRO='RHEL'
         PM='yum'
-    elif grep -Eqi "Aliyun" /etc/issue || grep -Eq "Aliyun" /etc/*-release; then
-        DISTRO='Aliyun'
+    elif grep -Eqi "Aliyun" /etc/issue || grep -Eq "Aliyun|Alibaba Cloud Linux" /etc/*-release; then
+        DISTRO='CentOS'
         PM='yum'
     elif grep -Eqi "Fedora" /etc/issue || grep -Eq "Fedora" /etc/*-release; then
         DISTRO='Fedora'
