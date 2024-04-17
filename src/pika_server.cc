@@ -1386,6 +1386,17 @@ void PikaServer::InitStorageOptions() {
           rocksdb::NewLRUCache(g_pika_conf->blob_cache(), static_cast<int>(g_pika_conf->blob_num_shard_bits()));
     }
   }
+
+  // For Partitioned Index Filters
+  if (g_pika_conf->enable_partitioned_index_filters()) {
+    storage_options_.table_options.index_type = rocksdb::BlockBasedTableOptions::IndexType::kTwoLevelIndexSearch;
+    storage_options_.table_options.filter_policy.reset(rocksdb::NewBloomFilterPolicy(10, false));
+    storage_options_.table_options.partition_filters = true;
+    storage_options_.table_options.metadata_block_size = 4096;
+    storage_options_.table_options.cache_index_and_filter_blocks_with_high_priority = true;
+    storage_options_.table_options.pin_top_level_index_and_filter = true; 
+    storage_options_.table_options.optimize_filters_for_memory = true;
+  }
 }
 
 storage::Status PikaServer::RewriteStorageOptions(const storage::OptionType& option_type,
