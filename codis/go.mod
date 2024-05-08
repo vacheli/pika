@@ -10,15 +10,15 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815
 	github.com/emirpasic/gods v1.18.1
-	github.com/garyburd/redigo v1.6.4
 	github.com/go-martini/martini v0.0.0-20170121215854-22fa46961aab
+	github.com/gomodule/redigo v1.9.2
 	github.com/influxdata/influxdb v1.11.0
 	github.com/martini-contrib/binding v0.0.0-20160701174519-05d3e151b6cf
 	github.com/martini-contrib/gzip v0.0.0-20151124214156-6c035326b43f
 	github.com/martini-contrib/render v0.0.0-20150707142108-ec18f8345a11
 	github.com/samuel/go-zookeeper v0.0.0-20201211165307-7117e9ea2414
 	github.com/spinlock/jemalloc-go v0.0.0-20201010032256-e81523fb8524
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.4
 	go.etcd.io/etcd/client/v2 v2.305.7
 	golang.org/x/net v0.17.0
 	gopkg.in/alexcesaro/statsd.v2 v2.0.0

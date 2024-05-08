@@ -84,7 +84,7 @@ type Config struct {
 
 	MaxSlotNum int `toml:"max_slot_num" json:"max_slot_num"`
 
-	SentinelCheckServerStateInterval    timesize.Duration `toml:"sentinel_check_server_state_interval" json:"sentinel_client_timeout"`
+	SentinelCheckServerStateInterval    timesize.Duration `toml:"sentinel_check_server_state_interval" json:"sentinel_check_server_state_interval"`
 	SentinelCheckMasterFailoverInterval timesize.Duration `toml:"sentinel_check_master_failover_interval" json:"sentinel_check_master_failover_interval"`
 	SentinelMasterDeadCheckTimes        int8              `toml:"sentinel_master_dead_check_times" json:"sentinel_master_dead_check_times"`
 	SentinelCheckOfflineServerInterval  timesize.Duration `toml:"sentinel_check_offline_server_interval" json:"sentinel_check_offline_server_interval"`
