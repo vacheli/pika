@@ -30,7 +30,7 @@ Status RedisStrings::Open(const StorageOptions& storage_options, const std::stri
   // use the bloom filter policy to reduce disk reads
   rocksdb::BlockBasedTableOptions table_ops(storage_options.table_options);
   if (!storage_options.share_block_cache && storage_options.block_cache_size > 0) {
-    table_ops.block_cache = rocksdb::NewLRUCache(storage_options.block_cache_size);
+    table_ops.block_cache = rocksdb::NewLRUCache(storage_options.block_cache_size,-1,true);
   }
   table_ops.filter_policy.reset(rocksdb::NewBloomFilterPolicy(10, true));
   ops.table_factory.reset(rocksdb::NewBlockBasedTableFactory(table_ops));

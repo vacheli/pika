@@ -58,8 +58,8 @@ rocksdb::Status RedisSets::Open(const StorageOptions& storage_options, const std
   rocksdb::BlockBasedTableOptions meta_cf_table_ops(table_ops);
   rocksdb::BlockBasedTableOptions member_cf_table_ops(table_ops);
   if (!storage_options.share_block_cache && storage_options.block_cache_size > 0) {
-    meta_cf_table_ops.block_cache = rocksdb::NewLRUCache(storage_options.block_cache_size);
-    member_cf_table_ops.block_cache = rocksdb::NewLRUCache(storage_options.block_cache_size);
+    meta_cf_table_ops.block_cache = rocksdb::NewLRUCache(storage_options.block_cache_size,-1,true);
+    member_cf_table_ops.block_cache = rocksdb::NewLRUCache(storage_options.block_cache_size,-1,true);
   }
   meta_cf_ops.table_factory.reset(rocksdb::NewBlockBasedTableFactory(meta_cf_table_ops));
   member_cf_ops.table_factory.reset(rocksdb::NewBlockBasedTableFactory(member_cf_table_ops));
